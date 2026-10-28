@@ -1,12 +1,31 @@
-import { Button } from '@/components/ui/button'
+import { CtaSection } from '@/components/landing/cta-section'
+import { FeaturesSection } from '@/components/landing/features-section'
+import { HeroSection } from '@/components/landing/hero-section'
+import { HowItWorksSection } from '@/components/landing/how-it-works-section'
+import { SiteFooter } from '@/components/landing/site-footer'
+import { SiteHeader } from '@/components/landing/site-header'
 import { createFileRoute } from '@tanstack/react-router'
 
-export const Route = createFileRoute('/')({ component: Home })
+export const Route = createFileRoute('/')({
+  head: () => ({
+    meta: [{ title: 'xxxdonacion — donasi, overlay, dan marketplace kreator' }],
+  }),
+  component: LandingPage,
+})
 
-function Home() {
+function LandingPage() {
   return (
-    <div className="flex min-h-svh items-center justify-center p-6">
-      <Button>Click me</Button>
+    <div className="min-h-svh bg-background">
+      <SiteHeader />
+
+      <main>
+        <HeroSection />
+        <FeaturesSection />
+        <HowItWorksSection />
+        <CtaSection />
+      </main>
+
+      <SiteFooter />
     </div>
   )
 }

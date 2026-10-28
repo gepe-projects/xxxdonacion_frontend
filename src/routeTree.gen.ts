@@ -10,33 +10,234 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AuthedRouteImport } from './routes/_authed'
+import { Route as LoginRouteImport } from './routes/login'
+import { Route as RegisterRouteImport } from './routes/register'
+import { Route as TestRouteImport } from './routes/test'
+import { Route as AuthedAdminRouteImport } from './routes/_authed/_admin'
+import { Route as AuthedAppRouteImport } from './routes/_authed/_app'
+import { Route as AuthedAppDashboardRouteImport } from './routes/_authed/_app/dashboard'
+import { Route as AuthedAppForbiddenRouteImport } from './routes/_authed/_app/forbidden'
+import { Route as AuthedAppMarketplaceRouteImport } from './routes/_authed/_app/marketplace'
+import { Route as AuthedAppOverlayRouteImport } from './routes/_authed/_app/overlay'
+import { Route as AuthedAdminAdminIndexRouteImport } from './routes/_authed/_admin/admin/index'
+import { Route as AuthedAppDonasiIndexRouteImport } from './routes/_authed/_app/donasi/index'
+import { Route as AuthedAppDonasiRiwayatRouteImport } from './routes/_authed/_app/donasi/riwayat'
+import { Route as AuthedAppPengaturanProfilRouteImport } from './routes/_authed/_app/pengaturan/profil'
+import { Route as AuthedAppPengaturanRekeningRouteImport } from './routes/_authed/_app/pengaturan/rekening'
+import { Route as AuthedAdminAdminUsersIndexRouteImport } from './routes/_authed/_admin/admin/users/index'
+import { Route as AuthedAdminAdminUsersUserIdRouteImport } from './routes/_authed/_admin/admin/users/$userId'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthedRoute = AuthedRouteImport.update({
+  id: '/_authed',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LoginRoute = LoginRouteImport.update({
+  id: '/login',
+  path: '/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RegisterRoute = RegisterRouteImport.update({
+  id: '/register',
+  path: '/register',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TestRoute = TestRouteImport.update({
+  id: '/test',
+  path: '/test',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthedAdminRoute = AuthedAdminRouteImport.update({
+  id: '/_admin',
+  getParentRoute: () => AuthedRoute,
+} as any)
+const AuthedAppRoute = AuthedAppRouteImport.update({
+  id: '/_app',
+  getParentRoute: () => AuthedRoute,
+} as any)
+const AuthedAppDashboardRoute = AuthedAppDashboardRouteImport.update({
+  id: '/dashboard',
+  path: '/dashboard',
+  getParentRoute: () => AuthedAppRoute,
+} as any)
+const AuthedAppForbiddenRoute = AuthedAppForbiddenRouteImport.update({
+  id: '/forbidden',
+  path: '/forbidden',
+  getParentRoute: () => AuthedAppRoute,
+} as any)
+const AuthedAppMarketplaceRoute = AuthedAppMarketplaceRouteImport.update({
+  id: '/marketplace',
+  path: '/marketplace',
+  getParentRoute: () => AuthedAppRoute,
+} as any)
+const AuthedAppOverlayRoute = AuthedAppOverlayRouteImport.update({
+  id: '/overlay',
+  path: '/overlay',
+  getParentRoute: () => AuthedAppRoute,
+} as any)
+const AuthedAdminAdminIndexRoute = AuthedAdminAdminIndexRouteImport.update({
+  id: '/admin/',
+  path: '/admin/',
+  getParentRoute: () => AuthedAdminRoute,
+} as any)
+const AuthedAppDonasiIndexRoute = AuthedAppDonasiIndexRouteImport.update({
+  id: '/donasi/',
+  path: '/donasi/',
+  getParentRoute: () => AuthedAppRoute,
+} as any)
+const AuthedAppDonasiRiwayatRoute = AuthedAppDonasiRiwayatRouteImport.update({
+  id: '/donasi/riwayat',
+  path: '/donasi/riwayat',
+  getParentRoute: () => AuthedAppRoute,
+} as any)
+const AuthedAppPengaturanProfilRoute =
+  AuthedAppPengaturanProfilRouteImport.update({
+    id: '/pengaturan/profil',
+    path: '/pengaturan/profil',
+    getParentRoute: () => AuthedAppRoute,
+  } as any)
+const AuthedAppPengaturanRekeningRoute =
+  AuthedAppPengaturanRekeningRouteImport.update({
+    id: '/pengaturan/rekening',
+    path: '/pengaturan/rekening',
+    getParentRoute: () => AuthedAppRoute,
+  } as any)
+const AuthedAdminAdminUsersIndexRoute =
+  AuthedAdminAdminUsersIndexRouteImport.update({
+    id: '/admin/users/',
+    path: '/admin/users/',
+    getParentRoute: () => AuthedAdminRoute,
+  } as any)
+const AuthedAdminAdminUsersUserIdRoute =
+  AuthedAdminAdminUsersUserIdRouteImport.update({
+    id: '/admin/users/$userId',
+    path: '/admin/users/$userId',
+    getParentRoute: () => AuthedAdminRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/login': typeof LoginRoute
+  '/register': typeof RegisterRoute
+  '/test': typeof TestRoute
+  '/dashboard': typeof AuthedAppDashboardRoute
+  '/forbidden': typeof AuthedAppForbiddenRoute
+  '/marketplace': typeof AuthedAppMarketplaceRoute
+  '/overlay': typeof AuthedAppOverlayRoute
+  '/donasi/riwayat': typeof AuthedAppDonasiRiwayatRoute
+  '/pengaturan/profil': typeof AuthedAppPengaturanProfilRoute
+  '/pengaturan/rekening': typeof AuthedAppPengaturanRekeningRoute
+  '/admin/': typeof AuthedAdminAdminIndexRoute
+  '/donasi/': typeof AuthedAppDonasiIndexRoute
+  '/admin/users/$userId': typeof AuthedAdminAdminUsersUserIdRoute
+  '/admin/users/': typeof AuthedAdminAdminUsersIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/login': typeof LoginRoute
+  '/register': typeof RegisterRoute
+  '/test': typeof TestRoute
+  '/dashboard': typeof AuthedAppDashboardRoute
+  '/forbidden': typeof AuthedAppForbiddenRoute
+  '/marketplace': typeof AuthedAppMarketplaceRoute
+  '/overlay': typeof AuthedAppOverlayRoute
+  '/donasi/riwayat': typeof AuthedAppDonasiRiwayatRoute
+  '/pengaturan/profil': typeof AuthedAppPengaturanProfilRoute
+  '/pengaturan/rekening': typeof AuthedAppPengaturanRekeningRoute
+  '/admin': typeof AuthedAdminAdminIndexRoute
+  '/donasi': typeof AuthedAppDonasiIndexRoute
+  '/admin/users/$userId': typeof AuthedAdminAdminUsersUserIdRoute
+  '/admin/users': typeof AuthedAdminAdminUsersIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/_authed': typeof AuthedRouteWithChildren
+  '/login': typeof LoginRoute
+  '/register': typeof RegisterRoute
+  '/test': typeof TestRoute
+  '/_authed/_admin': typeof AuthedAdminRouteWithChildren
+  '/_authed/_app': typeof AuthedAppRouteWithChildren
+  '/_authed/_app/dashboard': typeof AuthedAppDashboardRoute
+  '/_authed/_app/forbidden': typeof AuthedAppForbiddenRoute
+  '/_authed/_app/marketplace': typeof AuthedAppMarketplaceRoute
+  '/_authed/_app/overlay': typeof AuthedAppOverlayRoute
+  '/_authed/_app/donasi/riwayat': typeof AuthedAppDonasiRiwayatRoute
+  '/_authed/_app/pengaturan/profil': typeof AuthedAppPengaturanProfilRoute
+  '/_authed/_app/pengaturan/rekening': typeof AuthedAppPengaturanRekeningRoute
+  '/_authed/_admin/admin/': typeof AuthedAdminAdminIndexRoute
+  '/_authed/_app/donasi/': typeof AuthedAppDonasiIndexRoute
+  '/_authed/_admin/admin/users/$userId': typeof AuthedAdminAdminUsersUserIdRoute
+  '/_authed/_admin/admin/users/': typeof AuthedAdminAdminUsersIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/login'
+    | '/register'
+    | '/test'
+    | '/dashboard'
+    | '/forbidden'
+    | '/marketplace'
+    | '/overlay'
+    | '/donasi/riwayat'
+    | '/pengaturan/profil'
+    | '/pengaturan/rekening'
+    | '/admin/'
+    | '/donasi/'
+    | '/admin/users/$userId'
+    | '/admin/users/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/login'
+    | '/register'
+    | '/test'
+    | '/dashboard'
+    | '/forbidden'
+    | '/marketplace'
+    | '/overlay'
+    | '/donasi/riwayat'
+    | '/pengaturan/profil'
+    | '/pengaturan/rekening'
+    | '/admin'
+    | '/donasi'
+    | '/admin/users/$userId'
+    | '/admin/users'
+  id:
+    | '__root__'
+    | '/'
+    | '/_authed'
+    | '/login'
+    | '/register'
+    | '/test'
+    | '/_authed/_admin'
+    | '/_authed/_app'
+    | '/_authed/_app/dashboard'
+    | '/_authed/_app/forbidden'
+    | '/_authed/_app/marketplace'
+    | '/_authed/_app/overlay'
+    | '/_authed/_app/donasi/riwayat'
+    | '/_authed/_app/pengaturan/profil'
+    | '/_authed/_app/pengaturan/rekening'
+    | '/_authed/_admin/admin/'
+    | '/_authed/_app/donasi/'
+    | '/_authed/_admin/admin/users/$userId'
+    | '/_authed/_admin/admin/users/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AuthedRoute: typeof AuthedRouteWithChildren
+  LoginRoute: typeof LoginRoute
+  RegisterRoute: typeof RegisterRoute
+  TestRoute: typeof TestRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +249,189 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_authed': {
+      id: '/_authed'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof AuthedRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/login': {
+      id: '/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof LoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/register': {
+      id: '/register'
+      path: '/register'
+      fullPath: '/register'
+      preLoaderRoute: typeof RegisterRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/test': {
+      id: '/test'
+      path: '/test'
+      fullPath: '/test'
+      preLoaderRoute: typeof TestRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_authed/_admin': {
+      id: '/_authed/_admin'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof AuthedAdminRouteImport
+      parentRoute: typeof AuthedRoute
+    }
+    '/_authed/_app': {
+      id: '/_authed/_app'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof AuthedAppRouteImport
+      parentRoute: typeof AuthedRoute
+    }
+    '/_authed/_app/dashboard': {
+      id: '/_authed/_app/dashboard'
+      path: '/dashboard'
+      fullPath: '/dashboard'
+      preLoaderRoute: typeof AuthedAppDashboardRouteImport
+      parentRoute: typeof AuthedAppRoute
+    }
+    '/_authed/_app/forbidden': {
+      id: '/_authed/_app/forbidden'
+      path: '/forbidden'
+      fullPath: '/forbidden'
+      preLoaderRoute: typeof AuthedAppForbiddenRouteImport
+      parentRoute: typeof AuthedAppRoute
+    }
+    '/_authed/_app/marketplace': {
+      id: '/_authed/_app/marketplace'
+      path: '/marketplace'
+      fullPath: '/marketplace'
+      preLoaderRoute: typeof AuthedAppMarketplaceRouteImport
+      parentRoute: typeof AuthedAppRoute
+    }
+    '/_authed/_app/overlay': {
+      id: '/_authed/_app/overlay'
+      path: '/overlay'
+      fullPath: '/overlay'
+      preLoaderRoute: typeof AuthedAppOverlayRouteImport
+      parentRoute: typeof AuthedAppRoute
+    }
+    '/_authed/_admin/admin/': {
+      id: '/_authed/_admin/admin/'
+      path: '/admin'
+      fullPath: '/admin/'
+      preLoaderRoute: typeof AuthedAdminAdminIndexRouteImport
+      parentRoute: typeof AuthedAdminRoute
+    }
+    '/_authed/_app/donasi/': {
+      id: '/_authed/_app/donasi/'
+      path: '/donasi'
+      fullPath: '/donasi/'
+      preLoaderRoute: typeof AuthedAppDonasiIndexRouteImport
+      parentRoute: typeof AuthedAppRoute
+    }
+    '/_authed/_app/donasi/riwayat': {
+      id: '/_authed/_app/donasi/riwayat'
+      path: '/donasi/riwayat'
+      fullPath: '/donasi/riwayat'
+      preLoaderRoute: typeof AuthedAppDonasiRiwayatRouteImport
+      parentRoute: typeof AuthedAppRoute
+    }
+    '/_authed/_app/pengaturan/profil': {
+      id: '/_authed/_app/pengaturan/profil'
+      path: '/pengaturan/profil'
+      fullPath: '/pengaturan/profil'
+      preLoaderRoute: typeof AuthedAppPengaturanProfilRouteImport
+      parentRoute: typeof AuthedAppRoute
+    }
+    '/_authed/_app/pengaturan/rekening': {
+      id: '/_authed/_app/pengaturan/rekening'
+      path: '/pengaturan/rekening'
+      fullPath: '/pengaturan/rekening'
+      preLoaderRoute: typeof AuthedAppPengaturanRekeningRouteImport
+      parentRoute: typeof AuthedAppRoute
+    }
+    '/_authed/_admin/admin/users/': {
+      id: '/_authed/_admin/admin/users/'
+      path: '/admin/users'
+      fullPath: '/admin/users/'
+      preLoaderRoute: typeof AuthedAdminAdminUsersIndexRouteImport
+      parentRoute: typeof AuthedAdminRoute
+    }
+    '/_authed/_admin/admin/users/$userId': {
+      id: '/_authed/_admin/admin/users/$userId'
+      path: '/admin/users/$userId'
+      fullPath: '/admin/users/$userId'
+      preLoaderRoute: typeof AuthedAdminAdminUsersUserIdRouteImport
+      parentRoute: typeof AuthedAdminRoute
+    }
   }
 }
 
+interface AuthedAdminRouteChildren {
+  AuthedAdminAdminIndexRoute: typeof AuthedAdminAdminIndexRoute
+  AuthedAdminAdminUsersUserIdRoute: typeof AuthedAdminAdminUsersUserIdRoute
+  AuthedAdminAdminUsersIndexRoute: typeof AuthedAdminAdminUsersIndexRoute
+}
+
+const AuthedAdminRouteChildren: AuthedAdminRouteChildren = {
+  AuthedAdminAdminIndexRoute: AuthedAdminAdminIndexRoute,
+  AuthedAdminAdminUsersUserIdRoute: AuthedAdminAdminUsersUserIdRoute,
+  AuthedAdminAdminUsersIndexRoute: AuthedAdminAdminUsersIndexRoute,
+}
+
+const AuthedAdminRouteWithChildren = AuthedAdminRoute._addFileChildren(
+  AuthedAdminRouteChildren,
+)
+
+interface AuthedAppRouteChildren {
+  AuthedAppDashboardRoute: typeof AuthedAppDashboardRoute
+  AuthedAppForbiddenRoute: typeof AuthedAppForbiddenRoute
+  AuthedAppMarketplaceRoute: typeof AuthedAppMarketplaceRoute
+  AuthedAppOverlayRoute: typeof AuthedAppOverlayRoute
+  AuthedAppDonasiRiwayatRoute: typeof AuthedAppDonasiRiwayatRoute
+  AuthedAppPengaturanProfilRoute: typeof AuthedAppPengaturanProfilRoute
+  AuthedAppPengaturanRekeningRoute: typeof AuthedAppPengaturanRekeningRoute
+  AuthedAppDonasiIndexRoute: typeof AuthedAppDonasiIndexRoute
+}
+
+const AuthedAppRouteChildren: AuthedAppRouteChildren = {
+  AuthedAppDashboardRoute: AuthedAppDashboardRoute,
+  AuthedAppForbiddenRoute: AuthedAppForbiddenRoute,
+  AuthedAppMarketplaceRoute: AuthedAppMarketplaceRoute,
+  AuthedAppOverlayRoute: AuthedAppOverlayRoute,
+  AuthedAppDonasiRiwayatRoute: AuthedAppDonasiRiwayatRoute,
+  AuthedAppPengaturanProfilRoute: AuthedAppPengaturanProfilRoute,
+  AuthedAppPengaturanRekeningRoute: AuthedAppPengaturanRekeningRoute,
+  AuthedAppDonasiIndexRoute: AuthedAppDonasiIndexRoute,
+}
+
+const AuthedAppRouteWithChildren = AuthedAppRoute._addFileChildren(
+  AuthedAppRouteChildren,
+)
+
+interface AuthedRouteChildren {
+  AuthedAdminRoute: typeof AuthedAdminRouteWithChildren
+  AuthedAppRoute: typeof AuthedAppRouteWithChildren
+}
+
+const AuthedRouteChildren: AuthedRouteChildren = {
+  AuthedAdminRoute: AuthedAdminRouteWithChildren,
+  AuthedAppRoute: AuthedAppRouteWithChildren,
+}
+
+const AuthedRouteWithChildren =
+  AuthedRoute._addFileChildren(AuthedRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AuthedRoute: AuthedRouteWithChildren,
+  LoginRoute: LoginRoute,
+  RegisterRoute: RegisterRoute,
+  TestRoute: TestRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
