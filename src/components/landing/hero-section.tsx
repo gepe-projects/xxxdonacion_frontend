@@ -1,5 +1,5 @@
 import { OverlayPreview } from '@/components/landing/overlay-preview'
-import { Button } from '@/components/ui/button'
+import { buttonVariants } from '@/components/ui/button'
 import { Link } from '@tanstack/react-router'
 import { ArrowRight } from 'lucide-react'
 
@@ -22,13 +22,16 @@ export function HeroSection() {
         </p>
 
         <div className="flex flex-wrap items-center gap-3">
-          <Button size="lg" render={<Link to="/dashboard" />}>
+          <Link to="/dashboard" className={buttonVariants({ size: 'lg' })}>
             Mulai terima donasi
             <ArrowRight data-icon="inline-end" />
-          </Button>
-          <Button size="lg" variant="outline" render={<a href="#cara-kerja" />}>
+          </Link>
+          <a
+            href="#cara-kerja"
+            className={buttonVariants({ size: 'lg', variant: 'outline' })}
+          >
             Lihat cara kerjanya
-          </Button>
+          </a>
         </div>
 
         <p className="text-sm text-muted-foreground">

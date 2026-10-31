@@ -1,4 +1,4 @@
-import { Button } from '@/components/ui/button'
+import { buttonVariants } from '@/components/ui/button'
 import { Link } from '@tanstack/react-router'
 import { ArrowRight } from 'lucide-react'
 
@@ -14,10 +14,10 @@ export function CtaSection() {
           </p>
         </div>
 
-        <Button size="lg" render={<Link to="/dashboard" />}>
+        <Link to="/dashboard" className={buttonVariants({ size: 'lg' })}>
           Mulai sekarang
           <ArrowRight data-icon="inline-end" />
-        </Button>
+        </Link>
       </div>
     </section>
   )

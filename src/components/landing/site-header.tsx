@@ -1,4 +1,4 @@
-import { Button } from '@/components/ui/button'
+import { buttonVariants } from '@/components/ui/button'
 import { Skeleton } from '@/components/ui/skeleton'
 import { useAuth } from '@/hooks/use-auth'
 import { Link } from '@tanstack/react-router'
@@ -40,22 +40,21 @@ export function SiteHeader() {
         {loading ? (
           <Skeleton className="h-8 w-24 rounded-full" />
         ) : firebaseUser ? (
-          <Button
-            variant="outline"
-            size="sm"
-            render={<Link to={isAdmin ? '/admin' : '/dashboard'} />}
+          <Link
+            to={isAdmin ? '/admin' : '/dashboard'}
+            className={buttonVariants({ variant: 'outline', size: 'sm' })}
           >
             <span className="max-w-32 truncate">{name}</span>
             <ArrowUpRight data-icon="inline-end" />
-          </Button>
+          </Link>
         ) : (
-          <Button
-            variant="outline"
-            size="sm"
-            render={<Link to="/login" search={{ redirect: '/dashboard' }} />}
+          <Link
+            to="/login"
+            search={{ redirect: '/dashboard' }}
+            className={buttonVariants({ variant: 'outline', size: 'sm' })}
           >
             Masuk
-          </Button>
+          </Link>
         )}
       </div>
     </header>

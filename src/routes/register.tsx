@@ -1,5 +1,5 @@
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
-import { Button } from '@/components/ui/button'
+import { Button, buttonVariants } from '@/components/ui/button'
 import {
   Card,
   CardContent,
@@ -112,11 +112,13 @@ function RegisterPage() {
                 otomatis tersinkron ke server.
               </AlertDescription>
             </Alert>
-            <Button
-              render={<Link to="/login" search={{ redirect: '/dashboard' }} />}
+            <Link
+              to="/login"
+              search={{ redirect: '/dashboard' }}
+              className={buttonVariants()}
             >
               Ke halaman masuk
-            </Button>
+            </Link>
           </CardContent>
         </Card>
       </div>

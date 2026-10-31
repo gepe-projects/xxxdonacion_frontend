@@ -1,6 +1,6 @@
 import { PageHeader } from '@/components/dashboard/page-header'
 import { Badge } from '@/components/ui/badge'
-import { Button } from '@/components/ui/button'
+import { buttonVariants } from '@/components/ui/button'
 import {
   Card,
   CardContent,
@@ -55,10 +55,14 @@ function AdminOverviewPage() {
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <Button render={<Link to="/admin/users" />} data-icon="inline-end">
+            <Link
+              to="/admin/users"
+              className={buttonVariants()}
+              data-icon="inline-end"
+            >
               Buka kelola pengguna
               <ArrowRight data-icon="inline-end" />
-            </Button>
+            </Link>
           </CardContent>
         </Card>
 

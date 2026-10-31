@@ -8,7 +8,7 @@ import {
 import { PageHeader } from '@/components/dashboard/page-header'
 import { Alert, AlertDescription } from '@/components/ui/alert'
 import { Badge } from '@/components/ui/badge'
-import { Button } from '@/components/ui/button'
+import { Button, buttonVariants } from '@/components/ui/button'
 import {
   Card,
   CardContent,
@@ -99,10 +99,13 @@ function AdminUserDetailPage() {
         title={user?.name || 'Detail Pengguna'}
         description="Informasi akun dan akses pengguna."
       >
-        <Button variant="outline" render={<Link to="/admin/users" />}>
+        <Link
+          to="/admin/users"
+          className={buttonVariants({ variant: 'outline' })}
+        >
           <ArrowLeft data-icon="inline-start" />
           Kembali
-        </Button>
+        </Link>
         {canManage ? (
           <Button onClick={() => setEditOpen(true)}>
             <Pencil data-icon="inline-start" />
@@ -133,9 +136,12 @@ function AdminUserDetailPage() {
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <Button variant="outline" render={<Link to="/admin/users" />}>
+            <Link
+              to="/admin/users"
+              className={buttonVariants({ variant: 'outline' })}
+            >
               Kembali ke daftar user
-            </Button>
+            </Link>
           </CardContent>
         </Card>
       ) : (

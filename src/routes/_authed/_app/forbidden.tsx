@@ -1,5 +1,5 @@
 import { PageHeader } from '@/components/dashboard/page-header'
-import { Button } from '@/components/ui/button'
+import { buttonVariants } from '@/components/ui/button'
 import {
   Card,
   CardContent,
@@ -37,9 +37,9 @@ function ForbiddenPage() {
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <Button render={<Link to="/dashboard" />}>
+          <Link to="/dashboard" className={buttonVariants()}>
             Kembali ke dashboard
-          </Button>
+          </Link>
         </CardContent>
       </Card>
     </div>
