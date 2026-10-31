@@ -18,7 +18,10 @@ export function useAuth() {
 
   return {
     ...snapshot,
-    loading: snapshot.status === 'loading' || snapshot.status === 'syncing',
+    // Hanya menandakan sesi Firebase belum diketahui. Status 'syncing' tidak
+    // boleh menyembunyikan nama, karena firebaseUser sudah tersedia.
+    loading: snapshot.status === 'loading',
+    profileLoading: snapshot.status === 'syncing',
     isAuthenticated: snapshot.status === 'authenticated',
     isAdmin: isAdminUser(snapshot.user),
     signInWithEmail: authStore.signInWithEmail,

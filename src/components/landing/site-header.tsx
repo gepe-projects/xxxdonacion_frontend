@@ -7,10 +7,10 @@ import { ArrowUpRight } from 'lucide-react'
 export function SiteHeader() {
   const { firebaseUser, user: profile, loading, isAdmin } = useAuth()
   const name =
-    profile?.name ??
-    firebaseUser?.displayName ??
-    profile?.email.split('@')[0] ??
-    firebaseUser?.email?.split('@')[0] ??
+    profile?.name?.trim() ||
+    firebaseUser?.displayName?.trim() ||
+    profile?.email.split('@')[0] ||
+    firebaseUser?.email?.split('@')[0] ||
     'Akun'
 
   return (

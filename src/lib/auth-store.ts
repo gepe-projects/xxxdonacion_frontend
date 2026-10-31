@@ -72,7 +72,13 @@ function init() {
   initialized = true
 
   onAuthStateChanged(auth, (firebaseUser) => {
-    authGeneration += 1
+    const previousUid = state.firebaseUser?.uid ?? null
+    const nextUid = firebaseUser?.uid ?? null
+
+    // Naikkan epoch hanya saat identitas benar-benar berganti. Emisi ulang
+    // untuk UID yang sama (mis. updateProfile) tidak boleh membatalkan sync
+    // yang sedang berjalan.
+    if (nextUid !== previousUid) authGeneration += 1
 
     if (!firebaseUser) {
       resetCache()
@@ -92,6 +98,11 @@ function init() {
       user: cached,
       error: null,
     })
+
+    // Aplikasi baru dibuka / di-refresh: sesi Firebase dipulihkan di sini.
+    // Ini satu-satunya pemicu /identities/sync; navigasi antar halaman
+    // memakai cache profil in-memory.
+    void hydrateProfile()
   })
 }
 
@@ -148,7 +159,10 @@ async function syncUser(force = false): Promise<IdentityUser> {
   const promise = identityApi
     .sync()
     .then((user) => {
-      if (generation !== authGeneration) {
+      if (
+        generation !== authGeneration ||
+        auth.currentUser?.uid !== firebaseUser.uid
+      ) {
         throw new AuthFlowError(
           'auth-flow/stale',
           'Sesi login berubah. Silakan coba lagi.',
@@ -178,11 +192,44 @@ async function syncUser(force = false): Promise<IdentityUser> {
       throw error
     })
     .finally(() => {
-      if (generation === authGeneration) syncPromise = null
+      // Bandingkan identitas promise, bukan generation: sync stale tidak boleh
+      // meninggalkan promise mati untuk pemanggil berikutnya.
+      if (syncPromise === promise) syncPromise = null
     })
 
   syncPromise = promise
   return promise
+}
+
+/**
+ * Hidrasi profil backend saat sesi Firebase selesai dipulihkan (buka/refresh
+ * aplikasi). Navigasi antar halaman tidak memanggil ini — cache in-memory
+ * dipakai ulang. Tidak pernah melempar error supaya aman dipanggil dari
+ * listener auth.
+ */
+async function hydrateProfile(): Promise<IdentityUser | null> {
+  if (typeof window === 'undefined') return null
+
+  const firebaseUser = auth.currentUser
+  if (!firebaseUser) return null
+
+  // Backend mensyaratkan email_verified=true pada token. Jangan buang kuota
+  // /sync untuk sesi yang pasti ditolak (mis. tepat setelah register).
+  if (!firebaseUser.emailVerified) return null
+
+  // Jangan retry otomatis setelah gagal pada sesi yang sama.
+  if (
+    state.status === 'error' &&
+    state.firebaseUser?.uid === firebaseUser.uid
+  ) {
+    return null
+  }
+
+  try {
+    return await syncUser()
+  } catch {
+    return null // error sudah disimpan di state
+  }
 }
 
 /**
